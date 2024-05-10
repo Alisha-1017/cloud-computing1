@@ -1,0 +1,46 @@
+public class prac2 : System.Web.Services.WebService
+    {
+        [WebMethod]
+        public double rtod(double r)
+        {
+            double d = r * 83.31;
+            return d;
+        }
+    }
+}
+
+
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+           <form action ="newjspindex25.jsp" method="POST"> 
+Enter Rupees:<input type="text" name="txt1" value="" /> <br>
+<input type="submit" value="rs to dollar "/> <br>
+</form>
+    </body>
+</html>
+
+
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <%
+            tycs.Prac2 obj=new tycs.Prac2();
+            tycs.Prac2Soap port=obj.getPrac2Soap();
+            double n=Double.parseDouble(request.getParameter("txt"));
+            double res=port.rtod(n);
+            out.println("Conversion from rs to dollars:"+res);
+        %>
+    </body>
+</html>
