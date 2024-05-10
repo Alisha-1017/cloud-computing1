@@ -1,0 +1,88 @@
+@WebMethod(operationName = "addition")
+public float addition(@WebParam(name = "a") float a, @WebParam(name = "b") float b) {
+return (a+b);
+}
+@WebMethod(operationName = "subtraction")
+public float subtraction(@WebParam(name = "a") float a, @WebParam(name = "b") float b) {
+return (a-b);
+}
+@WebMethod(operationName = "multiplication")
+public float multiplication(@WebParam(name = "a") float a, @WebParam(name = "b") float b) {
+return (a*b);
+}
+@WebMethod(operationName = "division")
+public float division(@WebParam(name = "a") float a, @WebParam(name = "b") float b) {
+return (a/b);
+}
+}
+
+
+CODE(index.jsp):
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+<h1>Calculator</h1>
+<form action="indexaction.jsp" method="POST">
+Enter Number1:
+<input type="text" name="txt1" value="" />
+Enter Number2:
+<input type="text" name="txt2" value="" />
+<input type="submit" value="Addition" name="add" />
+<input type="submit" value="Subtraction" name="sub" />
+<input type="submit" value="Multiplication" name="mul" />
+<input type="submit" value="Division" name="div" />
+</form>
+</body>
+</html>
+
+
+CODE(indexaction.jsp):
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+<%
+tycs.Calc_Service obj=new tycs.Calc_Service(); //obj of service
+tycs.Calc port=obj.getCalcPort(); //port for service
+String num1=request.getParameter("txt1"); //took input1
+String num2=request.getParameter("txt2"); //took input2
+float val1=Float.parseFloat(num1); //parsing input variable1 to float
+float val2=Float.parseFloat(num2); //parsing input variable2 to float
+String ad=request.getParameter("add"); //took response from button1
+String su=request.getParameter("sub"); //took response from button2
+String mu=request.getParameter("mul"); //took response from button3
+String di=request.getParameter("div"); //took response from button4
+//if responses aren’t null, then do
+if(ad!=null)
+{
+float result=port.addition(val1, val2); //calling webservice method1
+out.println("Addition: "+result);
+}
+else if(su!=null)
+{
+float result=port.subtraction(val1, val2); //calling webservice method2
+out.println("Subtraction: "+result);
+}
+else if(mu!=null)
+{
+float result=port.multiplication(val1, val2); //calling webservice method3
+out.println("Multiplication: "+result);
+}
+else
+{
+float result=port.division(val1, val2); //calling webservice method4
+out.println("Division: "+result);
+}
+%>
+</body>
+</html>
+
